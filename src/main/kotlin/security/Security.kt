@@ -1,4 +1,4 @@
-package com.pvlbndrnk
+package com.pvlbndrnk.security
 
 import com.pvlbndrnk.session.ChatSession
 import io.ktor.server.application.*
