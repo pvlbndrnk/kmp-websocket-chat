@@ -1,15 +1,25 @@
-package com.pvlbndrnk.routes
+package com.pvlbndrnk.routing
 
 import com.pvlbndrnk.room.MemberAlreadyExistsException
 import com.pvlbndrnk.room.RoomController
 import com.pvlbndrnk.session.ChatSession
 import io.ktor.http.*
+import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.channels.consumeEach
+import org.koin.ktor.ext.inject
+
+fun Application.configureRouting() {
+    val roomController by inject<RoomController>()
+    routing {
+        chatSocket(roomController)
+        getAllMessages(roomController)
+    }
+}
 
 fun Route.getAllMessages(roomController: RoomController) {
     get("/messages") {
