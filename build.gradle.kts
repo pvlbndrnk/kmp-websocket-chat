@@ -28,6 +28,10 @@ dependencies {
     implementation(platform(libs.mongodb.driver.bom))
     implementation(libs.mongodb.driver.kotlin.coroutine)
 
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.ktor)
+    implementation(libs.koin.logger.slf4j)
+
     testImplementation(kotlin("test"))
     testImplementation(ktorLibs.server.testHost)
 }
