@@ -25,6 +25,9 @@ dependencies {
     implementation(ktorLibs.server.websockets)
     implementation(libs.logback.classic)
 
+    implementation(platform(libs.mongodb.driver.bom))
+    implementation(libs.mongodb.driver.kotlin.coroutine)
+
     testImplementation(kotlin("test"))
     testImplementation(ktorLibs.server.testHost)
 }
