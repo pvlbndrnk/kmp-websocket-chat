@@ -1,0 +1,22 @@
+# Gradle and Kotlin build output
+.gradle/
+.kotlin/
+build/
+out/
+
+# Local machine configuration
+local.properties
+.env
+.env.*
+!.env.example
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# OS and temporary files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
