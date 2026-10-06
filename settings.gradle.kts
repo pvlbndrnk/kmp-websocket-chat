@@ -17,5 +17,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ktor-chat"
+rootProject.name = "kmp-websocket-chat"
 
+include(":server")
