@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.android.kmp.library)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -26,6 +27,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.compose.ui)
             implementation(libs.compose.foundation)
+            implementation(libs.kotlinx.serialization.core)
         }
     }
 }
