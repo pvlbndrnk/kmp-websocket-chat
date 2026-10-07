@@ -14,6 +14,8 @@ local.properties
 .idea/
 *.iml
 .vscode/
+xcuserdata/
+*.xcuserstate
 
 # OS and temporary files
 .DS_Store

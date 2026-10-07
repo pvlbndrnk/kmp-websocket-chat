@@ -1,21 +1,18 @@
 # KMP WebSocket Chat
 
-Monorepo for a WebSocket chat application. The Ktor server is available now; Kotlin Multiplatform clients are planned.
+Monorepo for a WebSocket chat application with a Ktor server and Kotlin Multiplatform clients for Android and iOS.
 
 ## Structure
 
 | Path | Purpose |
 | --- | --- |
-| [`server/`](server/) | Ktor server and its tests |
+| [`server/`](server/) | Server module |
+| [`shared/`](shared/) | Shared module for Android and iOS |
+| [`androidApp/`](androidApp/) | Android application |
+| [`iosApp/`](iosApp/) | iOS application and Xcode project |
 
-The repository uses one Gradle build rooted here. Client modules will be added when client development begins.
+## Run
 
-## Server
-
-Install JDK 21 and start a local MongoDB instance. From the repository root, run:
-
-```sh
-./gradlew :server:run
-```
-
-The server listens on port 8080 by default. Set `PORT` to use another port. See the [server README](server/README.md) for its endpoints and test command.
+- [Server](server/README.md)
+- [Android](androidApp/README.md)
+- [iOS](iosApp/README.md)

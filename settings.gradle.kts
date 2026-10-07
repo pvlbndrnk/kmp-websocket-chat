@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        google()
         gradlePluginPortal()
     }
 }
@@ -10,6 +11,7 @@ plugins {
 
 dependencyResolutionManagement {
     repositories {
+        google()
         mavenCentral()
     }
     versionCatalogs {
@@ -20,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "kmp-websocket-chat"
 
 include(":server")
+include(":shared")
+include(":androidApp")
