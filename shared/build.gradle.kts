@@ -27,9 +27,22 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.compose.ui)
             implementation(libs.compose.foundation)
+            implementation(libs.compose.material3)
+            // kotlinx serialization
             implementation(libs.kotlinx.serialization.core)
             implementation(libs.kotlinx.serialization.json)
+            // ktor
             implementation(ktorLibs.client.core)
+            implementation(ktorLibs.client.logging)
+            implementation(ktorLibs.client.websockets)
+            implementation(ktorLibs.client.contentNegotiation)
+            implementation(ktorLibs.serialization.kotlinx.json)
+            // koin
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+
         }
         androidMain.dependencies {
             implementation(ktorLibs.client.okhttp)
