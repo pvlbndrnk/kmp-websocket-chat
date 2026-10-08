@@ -1,23 +1,32 @@
 package com.pvlbndrnk.chat
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.text.BasicText
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
+import com.pvlbndrnk.chat.di.appModule
+import org.koin.compose.KoinApplication
+import org.koin.dsl.KoinConfiguration
 
 @Composable
 fun App() {
-    val darkTheme = isSystemInDarkTheme()
-    val background = if (darkTheme) Color.Black else Color.White
-    val foreground = if (darkTheme) Color.White else Color.Black
-
-    Box(Modifier.fillMaxSize().background(background), contentAlignment = Alignment.Center) {
-        BasicText("Hello World", style = TextStyle(color = foreground))
+    KoinApplication(
+        configuration = KoinConfiguration(
+            config = {
+                modules(appModule)
+            }
+        )
+    ) {
+        MaterialTheme {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text("Hello, World")
+            }
+        }
     }
 }
