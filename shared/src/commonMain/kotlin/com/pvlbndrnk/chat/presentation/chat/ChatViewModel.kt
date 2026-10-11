@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 
 class ChatViewModel(
@@ -76,13 +77,23 @@ class ChatViewModel(
     fun getAllMessages() {
         viewModelScope.launch {
             _chatState.value = chatState.value.copy(
-                isLoading = true
+                isLoading = true,
+                errorMessage = null,
             )
-            val result = messageService.getAllMessages()
-            _chatState.value = chatState.value.copy(
-                messages = result,
-                isLoading = false
-            )
+            try {
+                val result = messageService.getAllMessages()
+                _chatState.value = chatState.value.copy(
+                    messages = result,
+                    isLoading = false,
+                )
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                _chatState.value = chatState.value.copy(
+                    isLoading = false,
+                    errorMessage = e.message ?: "Couldn't load messages",
+                )
+            }
         }
     }
 

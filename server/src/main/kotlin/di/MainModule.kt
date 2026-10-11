@@ -10,7 +10,8 @@ import org.koin.ktor.plugin.Koin
 
 val mainModule = module {
     single {
-        MongoClient.create().getDatabase("message_db")
+        val mongoUri = System.getenv("MONGO_URI") ?: "mongodb://localhost:27017"
+        MongoClient.create(mongoUri).getDatabase("message_db")
     }
     single<MessageDataSource> {
         MessageDataSourceImpl(get())

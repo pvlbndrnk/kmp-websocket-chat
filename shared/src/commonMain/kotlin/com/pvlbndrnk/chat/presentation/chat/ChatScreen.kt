@@ -59,6 +59,9 @@ fun ChatScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
+        state.errorMessage?.let { message ->
+            Text(text = message, color = Color.Red)
+        }
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
