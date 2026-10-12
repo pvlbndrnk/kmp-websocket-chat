@@ -5,7 +5,7 @@ Ktor server for the chat application. It exposes `GET /messages` and a WebSocket
 ## Requirements
 
 - JDK 21
-- MongoDB available on the default local connection
+- MongoDB available on the default local connection, or set `MONGO_URI`
 
 ## Run and test
 

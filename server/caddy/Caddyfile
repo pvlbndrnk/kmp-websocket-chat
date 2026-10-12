@@ -1,0 +1,3 @@
+pvlbndrnk.duckdns.org {
+    reverse_proxy server:8080
+}
