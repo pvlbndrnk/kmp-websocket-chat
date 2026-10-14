@@ -1,7 +1,6 @@
 services:
   server:
-    image: ktor-chat-server:71779d9
-    pull_policy: never
+    image: ${SERVER_IMAGE:?Set SERVER_IMAGE in .env}
     restart: unless-stopped
     environment:
       MONGO_URI: mongodb://${MONGO_USER:?Set MONGO_USER in .env}:${MONGO_PASSWORD:?Set MONGO_PASSWORD in .env}@mongo:27017/message_db?authSource=admin
