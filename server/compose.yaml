@@ -3,10 +3,7 @@ services:
     image: ${SERVER_IMAGE:?Set SERVER_IMAGE in .env}
     restart: unless-stopped
     environment:
-      MONGO_URI: mongodb://${MONGO_USER:?Set MONGO_USER in .env}:${MONGO_PASSWORD:?Set MONGO_PASSWORD in .env}@mongo:27017/message_db?authSource=admin
-    depends_on:
-      mongo:
-        condition: service_healthy
+      MONGO_URI: ${MONGO_URI:?Set MONGO_URI in .env}
     mem_limit: 320m
 
   caddy:
@@ -23,24 +20,6 @@ services:
       - server
     mem_limit: 128m
 
-  mongo:
-    image: mongo:8.0
-    restart: unless-stopped
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:?Set MONGO_USER in .env}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:?Set MONGO_PASSWORD in .env}
-    command: ["--wiredTigerCacheSizeGB", "0.256"]
-    volumes:
-      - mongo_data:/data/db
-    healthcheck:
-      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
-      interval: 10s
-      timeout: 5s
-      retries: 12
-      start_period: 40s
-    mem_limit: 512m
-
 volumes:
-  mongo_data:
   caddy_data:
   caddy_config:
