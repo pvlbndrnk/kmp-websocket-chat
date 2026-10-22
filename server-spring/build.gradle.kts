@@ -12,4 +12,7 @@ java {
 dependencies {
     implementation(platform(libs.spring.boot.bom))
     implementation(libs.spring.boot.starter.webmvc)
+    implementation(libs.spring.boot.starter.data.jpa)
+
+    runtimeOnly(libs.postgresql)
 }
