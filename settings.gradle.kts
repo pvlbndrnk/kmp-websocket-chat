@@ -21,6 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "kmp-websocket-chat"
 
-include(":server")
 include(":shared")
 include(":androidApp")
+include(":server")
+include(":server-spring")
