@@ -23,5 +23,5 @@ rootProject.name = "kmp-websocket-chat"
 
 include(":shared")
 include(":androidApp")
-include(":server")
+include(":server-ktor")
 include(":server-spring")

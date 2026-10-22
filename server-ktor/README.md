@@ -12,8 +12,8 @@ Ktor server for the chat application. It exposes `GET /messages` and a WebSocket
 Run these commands from the repository root:
 
 ```sh
-./gradlew :server:run
-./gradlew :server:test
+./gradlew :server-ktor:run
+./gradlew :server-ktor:test
 ```
 
 The server listens on port 8080 by default. Set `PORT` to use another port.

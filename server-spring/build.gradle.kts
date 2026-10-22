@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.java
-
 plugins {
     java
     alias(libs.plugins.spring.boot)
@@ -7,7 +5,7 @@ plugins {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 

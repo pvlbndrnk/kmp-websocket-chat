@@ -2,7 +2,7 @@ FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
-COPY build/libs/server-all.jar app.jar
+COPY build/libs/server-ktor-all.jar app.jar
 
 EXPOSE 8080
 
