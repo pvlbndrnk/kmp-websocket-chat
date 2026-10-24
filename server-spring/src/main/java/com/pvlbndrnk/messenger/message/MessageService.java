@@ -19,4 +19,9 @@ public class MessageService {
                 .map(MessageResponse::from)
                 .toList();
     }
+
+    public MessageResponse saveMessage(String username, String text) {
+        Message message = messageRepository.save(Message.create(username, text));
+        return MessageResponse.from(message);
+    }
 }

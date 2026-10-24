@@ -28,4 +28,11 @@ public class Message {
     @Generated
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
+
+    public static Message create(String username, String text) {
+        Message message = new Message();
+        message.username = username;
+        message.text = text;
+        return message;
+    }
 }
