@@ -20,9 +20,7 @@ compose-material3 = { module = "org.jetbrains.compose.material3:material3", vers
 compose-material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "materialIcons" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
-# MongoDB
-mongodb-driver-bom = { module = "org.mongodb:mongodb-driver-bom", version.ref = "mongodb"}
-mongodb-driver-kotlin-coroutine = { module = "org.mongodb:mongodb-driver-kotlin-coroutine", version.ref = "mongodb"}
+
 # koin
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core" }
@@ -30,17 +28,26 @@ koin-ktor = { module = "io.insert-koin:koin-ktor" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
 koin-logger-slf4j = { module = "io.insert-koin:koin-logger-slf4j" }
+
 # kotlinx serialization
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
 # Spring
 spring-boot-bom = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "springBoot" }
 spring-boot-starter-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
 spring-boot-starter-flyway = { module = "org.springframework.boot:spring-boot-starter-flyway" }
+spring-boot-starter-websocket = { module = "org.springframework.boot:spring-boot-starter-websocket" }
+
+# MongoDB
+mongodb-driver-bom = { module = "org.mongodb:mongodb-driver-bom", version.ref = "mongodb"}
+mongodb-driver-kotlin-coroutine = { module = "org.mongodb:mongodb-driver-kotlin-coroutine", version.ref = "mongodb"}
+
 # PostgreSQL
 postgresql = { module = "org.postgresql:postgresql" }
 flyway-database-postgresql = { module = "org.flywaydb:flyway-database-postgresql" }
+
 # Lombok
 lombok = { module = "org.projectlombok:lombok" }
 

@@ -14,8 +14,9 @@ dependencies {
     annotationProcessor(platform(libs.spring.boot.bom))
 
     implementation(libs.spring.boot.starter.webmvc)
-    implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.spring.boot.starter.websocket)
     implementation(libs.spring.boot.starter.flyway)
+    implementation(libs.spring.boot.starter.data.jpa)
 
     runtimeOnly(libs.postgresql)
     runtimeOnly(libs.flyway.database.postgresql)
