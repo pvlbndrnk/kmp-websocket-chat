@@ -3,4 +3,4 @@
 build/*
 !build/libs/
 build/libs/*
-!build/libs/server-all.jar
+!build/libs/server-ktor-all.jar
