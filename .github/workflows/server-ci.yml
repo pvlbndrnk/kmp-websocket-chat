@@ -77,16 +77,18 @@ jobs:
         uses: docker/setup-buildx-action@v4
 
       - name: Build & Publish Ktor Server Image
+        id: ktor_image
         uses: docker/build-push-action@v7
         with:
           context: ./server-ktor
           file: ./server-ktor/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/pvlbndrnk/kmp-websocket-chat-server:${{ github.sha }}
+          tags: ghcr.io/pvlbndrnk/kmp-websocket-chat-server-ktor:${{ github.sha }}
           labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
 
       - name: Build & Publish Spring Server Image
+        id: spring_image
         uses: docker/build-push-action@v7
         with:
           context: ./server-spring
@@ -95,3 +97,11 @@ jobs:
           push: true
           tags: ghcr.io/pvlbndrnk/kmp-websocket-chat-server-spring:${{ github.sha }}
           labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
+
+      - name: Show published digests
+        env:
+          KTOR_DIGEST: ${{ steps.ktor_image.outputs.digest }}
+          SPRING_DIGEST: ${{ steps.spring_image.outputs.digest }}
+        run: |
+          echo "Ktor: $KTOR_DIGEST" >> "$GITHUB_STEP_SUMMARY"
+          echo "Spring: $SPRING_DIGEST" >> "$GITHUB_STEP_SUMMARY"

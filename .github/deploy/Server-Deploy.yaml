@@ -1,0 +1,24 @@
+schemaVersion: '2.2'
+description: Deploy a published Ktor or Spring server image
+
+parameters:
+  ServerKind:
+    type: String
+    description: Server implementation to deploy
+    interpolationType: ENV_VAR
+    allowedValues:
+      - ktor
+      - spring
+  ImageDigest:
+    type: String
+    description: Digest of the selected published server image
+    interpolationType: ENV_VAR
+    allowedPattern: '^sha256:[0-9a-f]{64}$'
+
+mainSteps:
+  - action: aws:runShellScript
+    name: deployServer
+    inputs:
+      timeoutSeconds: '300'
+      runCommand:
+        - /bin/bash /home/ubuntu/server/switch-server.sh "$SSM_ServerKind" "$SSM_ImageDigest"

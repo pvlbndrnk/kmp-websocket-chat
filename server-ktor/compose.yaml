@@ -9,6 +9,8 @@ services:
   caddy:
     image: caddy:2.11.7-alpine
     restart: unless-stopped
+    environment:
+      SERVER_HOST: ${SERVER_HOST:-pvlbndrnk.duckdns.org}
     ports:
       - "80:80"
       - "443:443"
