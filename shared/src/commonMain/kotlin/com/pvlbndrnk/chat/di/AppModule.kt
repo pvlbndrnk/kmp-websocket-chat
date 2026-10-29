@@ -1,5 +1,6 @@
 package com.pvlbndrnk.chat.di
 
+import com.pvlbndrnk.chat.auth.di.authModule
 import com.pvlbndrnk.chat.data.remote.ChatSocketServiceImpl
 import com.pvlbndrnk.chat.data.remote.ChatSocketService
 import com.pvlbndrnk.chat.data.remote.MessageService
@@ -16,6 +17,9 @@ import org.koin.dsl.module
 import org.koin.dsl.onClose
 
 val appModule = module {
+
+    includes(authModule)
+
     single {
         HttpClient {
             install(Logging)
