@@ -1,9 +1,14 @@
 package com.pvlbndrnk.chat.auth.presentation
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -16,29 +21,38 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun AuthScreen(
-    state: AuthUiState,
-    onSubmit: () -> Unit,
-    onUsernameChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit,
-    onAuthModeChange: (AuthMode) -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: AuthViewModel = koinViewModel(),
 ) {
+    val uiState = viewModel.uiState.value
+    val scrollState = rememberScrollState()
+    val focusManager = LocalFocusManager.current
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)
+            .pointerInput(focusManager) {
+                detectTapGestures(onTap = { focusManager.clearFocus() })
+            },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Header(authMode = state.authMode)
-        InputUsername(state, onUsernameChange)
-        InputPassword(state, onPasswordChange)
-        Submit(state.authMode, state.isSubmitting, onSubmit)
-        SwitchAuthMode(state.authMode, onAuthModeChange)
+        Header(authMode = uiState.authMode)
+        InputUsername(uiState, viewModel::onUsernameChange)
+        InputPassword(uiState, viewModel::onSubmit, viewModel::onPasswordChange)
+        SubmitButton(uiState.authMode, uiState.isSubmitting, viewModel::onSubmit)
+        SwitchAuthMode(uiState.authMode, viewModel::onAuthModeChange)
     }
 }
 
@@ -58,12 +72,19 @@ private fun InputUsername(state: AuthUiState, onUsernameChange: (String) -> Unit
         value = state.username,
         onValueChange = onUsernameChange,
         label = { Text(text = "Username") },
+        supportingText = { state.usernameError?.let { Text(text = it) } },
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+        isError = state.usernameError != null,
         singleLine = true,
     )
 }
 
 @Composable
-private fun InputPassword(state: AuthUiState, onPasswordChange: (String) -> Unit) {
+private fun InputPassword(
+    state: AuthUiState,
+    onSubmit: () -> Unit,
+    onPasswordChange: (String) -> Unit,
+) {
     var isPasswordHidden by remember(state.authMode) {
         mutableStateOf(true)
     }
@@ -76,17 +97,21 @@ private fun InputPassword(state: AuthUiState, onPasswordChange: (String) -> Unit
             VisualTransformation.None
         },
         label = { Text(text = "Password") },
-        singleLine = true,
+        supportingText = { state.passwordError?.let { Text(text = it) } },
         trailingIcon = {
             TextButton(onClick = { isPasswordHidden = !isPasswordHidden }) {
                 Text(text = if (isPasswordHidden) "Show" else "Hide")
             }
-        }
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(onDone = { onSubmit.invoke() }),
+        isError = state.passwordError != null,
+        singleLine = true,
     )
 }
 
 @Composable
-private fun Submit(authMode: AuthMode, isSubmitting: Boolean, onSubmit: () -> Unit) {
+private fun SubmitButton(authMode: AuthMode, isSubmitting: Boolean, onSubmit: () -> Unit) {
     Button(onClick = onSubmit, enabled = !isSubmitting) {
         if (isSubmitting) {
             CircularProgressIndicator(modifier = Modifier.size(20.dp))

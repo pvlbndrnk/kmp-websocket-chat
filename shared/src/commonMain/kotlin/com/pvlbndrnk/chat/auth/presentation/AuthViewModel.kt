@@ -11,20 +11,39 @@ class AuthViewModel: ViewModel() {
 
     fun onUsernameChange(username: String) {
         _uiState.value = _uiState.value.copy(
-            username = username
+            username = username,
+            usernameError = null,
         )
     }
 
     fun onPasswordChange(password: String) {
         _uiState.value = _uiState.value.copy(
-            password = password
+            password = password,
+            passwordError = null,
         )
     }
 
     fun onAuthModeChange(authMode: AuthMode) {
         _uiState.value = _uiState.value.copy(
             authMode = authMode,
-            password = ""
+            password = "",
+            usernameError = null,
+            passwordError = null,
+        )
+    }
+
+    fun onSubmit() {
+        _uiState.value = _uiState.value.copy(
+            usernameError = if (_uiState.value.username.isBlank()) {
+                "Enter a username"
+            } else {
+                null
+            },
+            passwordError = if (_uiState.value.password.isBlank()) {
+                "Enter a password"
+            } else {
+                null
+            }
         )
     }
 }

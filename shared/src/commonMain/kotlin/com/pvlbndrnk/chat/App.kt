@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.savedstate.read
+import com.pvlbndrnk.chat.auth.presentation.AuthScreen
 import com.pvlbndrnk.chat.di.appModule
 import com.pvlbndrnk.chat.presentation.chat.ChatScreen
 import com.pvlbndrnk.chat.presentation.username.UsernameScreen
@@ -27,8 +28,9 @@ fun App() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "username_screen"
+                startDestination = "auth_screen"
             ) {
+                composable("auth_screen") { AuthScreen() }
                 composable("username_screen") {
                     UsernameScreen(onNavigate = navController::navigate)
                 }
