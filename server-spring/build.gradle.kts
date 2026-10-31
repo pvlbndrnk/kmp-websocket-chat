@@ -18,6 +18,9 @@ dependencies {
     implementation(libs.spring.boot.starter.flyway)
     implementation(libs.spring.boot.starter.data.jpa)
 
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.bouncycastle.bcprov.jdk18on)
+
     runtimeOnly(libs.postgresql)
     runtimeOnly(libs.flyway.database.postgresql)
 
