@@ -15,6 +15,8 @@ dependencies {
 
     implementation(libs.spring.boot.starter.webmvc)
     implementation(libs.spring.boot.starter.websocket)
+    implementation(libs.spring.boot.starter.validation)
+
     implementation(libs.spring.boot.starter.flyway)
     implementation(libs.spring.boot.starter.data.jpa)
 
