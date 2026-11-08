@@ -19,14 +19,15 @@ import kotlinx.coroutines.isActive
 import kotlinx.serialization.json.Json
 
 class ChatSocketServiceImpl(
-    private val client: HttpClient
+    private val client: HttpClient,
+    private val webSocketUrl: String,
 ) : ChatSocketService {
 
     private var socket: WebSocketSession? = null
 
-    override suspend fun initSession(username: String): Resource<Unit> = try {
+    override suspend fun initSession(): Resource<Unit> = try {
         socket = client.webSocketSession {
-            url.takeFrom("${ChatSocketService.Endpoints.ChatSocket.url}?username=$username")
+            url.takeFrom(webSocketUrl)
         }
         if (socket?.isActive == true) {
             Resource.Success(Unit)

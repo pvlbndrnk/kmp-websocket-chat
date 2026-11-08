@@ -11,6 +11,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -51,8 +52,9 @@ fun AuthScreen(
         Header(authMode = uiState.authMode)
         InputUsername(uiState, viewModel::onUsernameChange)
         InputPassword(uiState, viewModel::onSubmit, viewModel::onPasswordChange)
+        SubmitError(uiState.submitError)
         SubmitButton(uiState.authMode, uiState.isSubmitting, viewModel::onSubmit)
-        SwitchAuthMode(uiState.authMode, viewModel::onAuthModeChange)
+        SwitchAuthMode(uiState.authMode, uiState.isSubmitting, viewModel::onAuthModeChange)
     }
 }
 
@@ -75,6 +77,7 @@ private fun InputUsername(state: AuthUiState, onUsernameChange: (String) -> Unit
         supportingText = { state.usernameError?.let { Text(text = it) } },
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         isError = state.usernameError != null,
+        enabled = !state.isSubmitting,
         singleLine = true,
     )
 }
@@ -106,8 +109,19 @@ private fun InputPassword(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
         keyboardActions = KeyboardActions(onDone = { onSubmit.invoke() }),
         isError = state.passwordError != null,
+        enabled = !state.isSubmitting,
         singleLine = true,
     )
+}
+
+@Composable
+private fun SubmitError(message: String?) {
+    message?.let {
+        Text(
+            text = it,
+            color = MaterialTheme.colorScheme.error
+        )
+    }
 }
 
 @Composable
@@ -127,15 +141,22 @@ private fun SubmitButton(authMode: AuthMode, isSubmitting: Boolean, onSubmit: ()
 }
 
 @Composable
-private fun SwitchAuthMode(authMode: AuthMode, onAuthModeChange: (AuthMode) -> Unit) {
-    TextButton(onClick = {
-        onAuthModeChange(
-            when (authMode) {
-                AuthMode.LOGIN -> AuthMode.REGISTER
-                AuthMode.REGISTER -> AuthMode.LOGIN
-            }
-        )
-    }) {
+private fun SwitchAuthMode(
+    authMode: AuthMode,
+    isSubmitting: Boolean,
+    onAuthModeChange: (AuthMode) -> Unit
+) {
+    TextButton(
+        onClick = {
+            onAuthModeChange(
+                when (authMode) {
+                    AuthMode.LOGIN -> AuthMode.REGISTER
+                    AuthMode.REGISTER -> AuthMode.LOGIN
+                }
+            )
+        },
+        enabled = !isSubmitting,
+    ) {
         Text(
             text = when (authMode) {
                 AuthMode.LOGIN -> "Create account"

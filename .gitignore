@@ -6,6 +6,7 @@ out/
 
 # Local machine configuration
 local.properties
+androidApp/build.properties
 .env
 .env.*
 !.env.example

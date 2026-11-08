@@ -7,4 +7,5 @@ data class AuthUiState(
     val isSubmitting: Boolean = false,
     val usernameError: String? = null,
     val passwordError: String? = null,
+    val submitError: String? = null,
 )
