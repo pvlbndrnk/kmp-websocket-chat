@@ -3,6 +3,7 @@ package com.pvlbndrnk.messenger.user;
 import org.hibernate.annotations.Generated;
 
 import java.time.Instant;
+import java.util.Locale;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -34,5 +35,9 @@ public class User {
         user.username = username;
         user.passwordHash = passwordHash;
         return user;
+    }
+
+    public static String normalizeUsername(String username) {
+        return username.trim().toLowerCase(Locale.ROOT);
     }
 }

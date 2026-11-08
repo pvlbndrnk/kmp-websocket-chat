@@ -22,6 +22,7 @@ dependencies {
 
     implementation(libs.spring.boot.starter.security)
     implementation(libs.bouncycastle.bcprov.jdk18on)
+    implementation(libs.spring.boot.starter.oauth2.resource.server)
 
     runtimeOnly(libs.postgresql)
     runtimeOnly(libs.flyway.database.postgresql)

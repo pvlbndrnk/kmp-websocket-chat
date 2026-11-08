@@ -19,8 +19,40 @@ public class AuthController {
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public AuthUserResponse createUser(@Valid @RequestBody RegisterRequest request) {
-        User user = authService.createUser(request.username(), request.password());
-        return new AuthUserResponse(user.getId(), user.getUsername());
+    public UserResponse createUser(@Valid @RequestBody CreateUserRequest request) {
+        String username = request.username();
+        String password = request.password();
+        return createUserResponse(authService.createUser(username, password));
+    }
+
+    @PostMapping("/sessions")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CreateSessionResponse createSession(@Valid @RequestBody CreateSessionRequest request) {
+        String username = request.username();
+        String password = request.password();
+        CreateSessionResult createSessionResult = authService.createSession(username, password);
+        UserResponse userResponse = createUserResponse(createSessionResult.user());
+        return new CreateSessionResponse(
+                userResponse,
+                createSessionResult.accessToken(),
+                createSessionResult.refreshToken(),
+                createSessionResult.accessTokenExpiresInSeconds()
+        );
+    }
+
+    @PostMapping("/access-tokens")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CreateAccessTokenResponse createAccessToken(@Valid @RequestBody CreateAccessTokenRequest request) {
+        String refreshToken = request.refreshToken();
+        CreateAccessTokenResult createAccessTokenResult = authService.createAccessToken(refreshToken);
+        return new CreateAccessTokenResponse(
+                createUserResponse(createAccessTokenResult.user()),
+                createAccessTokenResult.accessToken(),
+                createAccessTokenResult.accessTokenExpiresInSeconds()
+        );
+    }
+
+    private UserResponse createUserResponse(User user) {
+        return new UserResponse(user.getId(), user.getUsername());
     }
 }
