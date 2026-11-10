@@ -1,4 +1,4 @@
-package com.pvlbndrnk.messenger.auth;
+package com.pvlbndrnk.messenger.auth.service;
 
 import com.pvlbndrnk.messenger.user.User;
 

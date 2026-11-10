@@ -1,4 +1,6 @@
-package com.pvlbndrnk.messenger.auth;
+package com.pvlbndrnk.messenger.auth.repository;
+
+import com.pvlbndrnk.messenger.auth.domain.RefreshSession;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;

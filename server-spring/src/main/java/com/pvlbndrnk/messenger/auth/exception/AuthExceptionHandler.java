@@ -1,4 +1,4 @@
-package com.pvlbndrnk.messenger.auth;
+package com.pvlbndrnk.messenger.auth.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;

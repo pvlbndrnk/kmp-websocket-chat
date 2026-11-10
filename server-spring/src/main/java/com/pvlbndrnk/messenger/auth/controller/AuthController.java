@@ -1,5 +1,14 @@
-package com.pvlbndrnk.messenger.auth;
+package com.pvlbndrnk.messenger.auth.controller;
 
+import com.pvlbndrnk.messenger.auth.service.AuthService;
+import com.pvlbndrnk.messenger.auth.dto.CreateAccessTokenRequest;
+import com.pvlbndrnk.messenger.auth.dto.CreateAccessTokenResponse;
+import com.pvlbndrnk.messenger.auth.domain.CreateAccessTokenResult;
+import com.pvlbndrnk.messenger.auth.dto.CreateSessionRequest;
+import com.pvlbndrnk.messenger.auth.dto.CreateSessionResponse;
+import com.pvlbndrnk.messenger.auth.domain.CreateSessionResult;
+import com.pvlbndrnk.messenger.auth.dto.CreateUserRequest;
+import com.pvlbndrnk.messenger.auth.dto.UserResponse;
 import com.pvlbndrnk.messenger.user.User;
 
 import org.springframework.http.HttpStatus;

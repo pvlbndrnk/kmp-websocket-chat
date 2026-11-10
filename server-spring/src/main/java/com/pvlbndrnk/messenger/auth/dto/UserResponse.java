@@ -1,4 +1,4 @@
-package com.pvlbndrnk.messenger.auth;
+package com.pvlbndrnk.messenger.auth.dto;
 
 import java.util.UUID;
 

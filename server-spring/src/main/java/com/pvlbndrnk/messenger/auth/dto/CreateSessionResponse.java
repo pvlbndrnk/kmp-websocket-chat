@@ -1,4 +1,4 @@
-package com.pvlbndrnk.messenger.auth;
+package com.pvlbndrnk.messenger.auth.dto;
 
 public record CreateSessionResponse(
         UserResponse user,
