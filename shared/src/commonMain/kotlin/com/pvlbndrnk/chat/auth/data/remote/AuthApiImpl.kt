@@ -1,11 +1,11 @@
 package com.pvlbndrnk.chat.auth.data.remote
 
 import com.pvlbndrnk.chat.auth.domain.error.AuthException
-import com.pvlbndrnk.chat.auth.data.remote.model.CreateAccessTokenRequestDto
-import com.pvlbndrnk.chat.auth.data.remote.model.CreateAccessTokenResponseDto
-import com.pvlbndrnk.chat.auth.data.remote.model.CreateSessionRequestDto
-import com.pvlbndrnk.chat.auth.data.remote.model.CreateSessionResponseDto
-import com.pvlbndrnk.chat.auth.data.remote.model.CreateUserRequestDto
+import com.pvlbndrnk.chat.auth.data.remote.model.TokenRequestDto
+import com.pvlbndrnk.chat.auth.data.remote.model.TokenResponseDto
+import com.pvlbndrnk.chat.auth.data.remote.model.LoginRequestDto
+import com.pvlbndrnk.chat.auth.data.remote.model.LoginResponseDto
+import com.pvlbndrnk.chat.auth.data.remote.model.UserRequestDto
 import com.pvlbndrnk.chat.auth.data.remote.model.UserResponseDto
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -16,8 +16,8 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 
 class AuthApiImpl(private val httpClient: HttpClient): AuthApi {
-    override suspend fun createUser(request: CreateUserRequestDto): UserResponseDto {
-        val response = httpClient.post("users") {
+    override suspend fun register(request: UserRequestDto): UserResponseDto {
+        val response = httpClient.post("auth/register") {
             contentType(ContentType.Application.Json)
             setBody(request)
         }
@@ -28,8 +28,8 @@ class AuthApiImpl(private val httpClient: HttpClient): AuthApi {
         }
     }
 
-    override suspend fun createSession(request: CreateSessionRequestDto): CreateSessionResponseDto {
-        val response = httpClient.post("sessions") {
+    override suspend fun login(request: LoginRequestDto): LoginResponseDto {
+        val response = httpClient.post("auth/login") {
             contentType(ContentType.Application.Json)
             setBody(request)
         }
@@ -40,8 +40,8 @@ class AuthApiImpl(private val httpClient: HttpClient): AuthApi {
         }
     }
 
-    override suspend fun createAccessToken(request: CreateAccessTokenRequestDto): CreateAccessTokenResponseDto {
-        val response = httpClient.post("access-tokens") {
+    override suspend fun refreshAccessToken(request: TokenRequestDto): TokenResponseDto {
+        val response = httpClient.post("auth/refresh") {
             contentType(ContentType.Application.Json)
             setBody(request)
         }

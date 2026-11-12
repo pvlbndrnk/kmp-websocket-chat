@@ -18,8 +18,8 @@ import lombok.Getter;
 
 @Getter
 @Entity
-@Table(name = "refresh_sessions")
-public class RefreshSession {
+@Table(name = "tokens")
+public class Token {
     @Id
     @Generated
     private UUID id;
@@ -41,11 +41,11 @@ public class RefreshSession {
     @Column(name = "revoked_at")
     private Instant revokedAt;
 
-    public static RefreshSession create(User user, String tokenHash, Instant expiresAt) {
-        RefreshSession refreshSession = new RefreshSession();
-        refreshSession.user = user;
-        refreshSession.tokenHash = tokenHash;
-        refreshSession.expiresAt = expiresAt;
-        return refreshSession;
+    public static Token create(User user, String tokenHash, Instant expiresAt) {
+        Token token = new Token();
+        token.user = user;
+        token.tokenHash = tokenHash;
+        token.expiresAt = expiresAt;
+        return token;
     }
 }

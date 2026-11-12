@@ -1,9 +1,7 @@
 package com.pvlbndrnk.messenger.auth.service;
 
-import com.pvlbndrnk.messenger.auth.domain.CreateAccessTokenResult;
-import com.pvlbndrnk.messenger.auth.domain.CreateSessionResult;
-import com.pvlbndrnk.messenger.auth.domain.RefreshSession;
-import com.pvlbndrnk.messenger.auth.exception.UsernameAlreadyExistsException;
+import com.pvlbndrnk.messenger.auth.domain.Token;
+import com.pvlbndrnk.messenger.auth.exception.UserAlreadyExistsException;
 import com.pvlbndrnk.messenger.user.User;
 import com.pvlbndrnk.messenger.user.UserRepository;
 
@@ -21,35 +19,34 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final AccessTokenService accessTokenService;
-    private final RefreshSessionService refreshSessionService;
+    private final TokenService tokenService;
     private final AuthenticationManager authenticationManager;
 
-    public User createUser(String username, String password) {
+    public User register(String username, String password) {
         String normalizedUsername = User.normalizeUsername(username);
 
         if (userRepository.existsByUsername(normalizedUsername)) {
-            throw new UsernameAlreadyExistsException("Username already exists");
+            throw new UserAlreadyExistsException("User already exists");
         }
 
         String passwordHash = passwordEncoder.encode(password);
         return userRepository.save(User.create(normalizedUsername, passwordHash));
     }
 
-    public CreateSessionResult createSession(String username, String password) {
+    public LoginResult login(String username, String password) {
         User user = authenticateUser(username, password);
-        String accessToken = accessTokenService.createToken(user);
-        String refreshToken = refreshSessionService.createSession(user);
-        long accessTokenExpiresInSeconds = accessTokenService.accessTokenTtlInSeconds();
-        return new CreateSessionResult(user, accessToken, refreshToken, accessTokenExpiresInSeconds);
+        String accessToken = tokenService.createAccessToken(user);
+        String refreshToken = tokenService.createRefreshToken(user);
+        long accessTokenExpiresInSeconds = tokenService.accessTokenTtlInSeconds();
+        return new LoginResult(user, accessToken, refreshToken, accessTokenExpiresInSeconds);
     }
 
-    public CreateAccessTokenResult createAccessToken(String refreshToken) {
-        RefreshSession session = refreshSessionService.findValidSession(refreshToken);
+    public TokenResult createAccessToken(String refreshToken) {
+        Token session = tokenService.findValidRefreshToken(refreshToken);
         User user = session.getUser();
-        String accessToken = accessTokenService.createToken(user);
-        long accessTokenExpiresInSeconds = accessTokenService.accessTokenTtlInSeconds();
-        return new CreateAccessTokenResult(user, accessToken, accessTokenExpiresInSeconds);
+        String accessToken = tokenService.createAccessToken(user);
+        long accessTokenExpiresInSeconds = tokenService.accessTokenTtlInSeconds();
+        return new TokenResult(user, accessToken, accessTokenExpiresInSeconds);
     }
 
     private User authenticateUser(String username, String password) {

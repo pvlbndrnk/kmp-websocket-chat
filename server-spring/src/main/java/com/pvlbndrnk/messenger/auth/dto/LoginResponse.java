@@ -1,6 +1,6 @@
 package com.pvlbndrnk.messenger.auth.dto;
 
-public record CreateSessionResponse(
+public record LoginResponse(
         UserResponse user,
         String accessToken,
         String refreshToken,

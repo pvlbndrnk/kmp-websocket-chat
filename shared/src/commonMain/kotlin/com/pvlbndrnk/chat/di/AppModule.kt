@@ -1,8 +1,8 @@
 package com.pvlbndrnk.chat.di
 
 import com.pvlbndrnk.chat.AppViewModel
-import com.pvlbndrnk.chat.auth.data.remote.model.CreateAccessTokenRequestDto
-import com.pvlbndrnk.chat.auth.data.remote.model.CreateAccessTokenResponseDto
+import com.pvlbndrnk.chat.auth.data.remote.model.TokenRequestDto
+import com.pvlbndrnk.chat.auth.data.remote.model.TokenResponseDto
 import com.pvlbndrnk.chat.auth.di.authModule
 import com.pvlbndrnk.chat.data.remote.ChatSocketService
 import com.pvlbndrnk.chat.data.remote.ChatSocketServiceImpl
@@ -70,16 +70,16 @@ fun appModule(serverBaseUrl: String) = module {
                         val response = client.post("access-tokens") {
                             markAsRefreshTokenRequest()
                             contentType(ContentType.Application.Json)
-                            setBody(CreateAccessTokenRequestDto(refreshToken))
+                            setBody(TokenRequestDto(refreshToken))
                         }
                         when (response.status) {
                             HttpStatusCode.Created -> {
-                                val tokens = response.body<CreateAccessTokenResponseDto>()
+                                val tokens = response.body<TokenResponseDto>()
                                 sessionManager.setAccessToken(
                                     user = tokens.user.toUser(),
-                                    accessToken = tokens.accessToken,
+                                    accessToken = tokens.token,
                                 )
-                                BearerTokens(tokens.accessToken, refreshToken)
+                                BearerTokens(tokens.token, refreshToken)
                             }
                             HttpStatusCode.Unauthorized -> {
                                 sessionManager.clearSession()

@@ -1,8 +1,8 @@
-package com.pvlbndrnk.messenger.auth.domain;
+package com.pvlbndrnk.messenger.auth.service;
 
 import com.pvlbndrnk.messenger.user.User;
 
-public record CreateSessionResult(
+public record LoginResult(
         User user,
         String accessToken,
         String refreshToken,

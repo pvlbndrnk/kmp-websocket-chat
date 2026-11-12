@@ -21,7 +21,7 @@ class AppViewModel(
     fun retryRestore() {
         sessionManager.markRestoring()
         viewModelScope.launch {
-            authRepository.restoreSession()
+            authRepository.refreshAccessToken()
         }
     }
 }

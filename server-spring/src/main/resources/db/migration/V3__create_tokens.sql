@@ -1,4 +1,4 @@
-CREATE TABLE refresh_sessions (
+CREATE TABLE tokens (
     id UUID PRIMARY KEY DEFAULT uuidv7(),
     user_id UUID NOT NULL REFERENCES users(id),
     token_hash VARCHAR(64) NOT NULL UNIQUE,

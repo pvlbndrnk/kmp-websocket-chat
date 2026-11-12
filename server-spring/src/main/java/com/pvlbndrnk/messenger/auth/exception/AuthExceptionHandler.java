@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class AuthExceptionHandler {
-    @ExceptionHandler(UsernameAlreadyExistsException.class)
-    public ProblemDetail handleUsernameAlreadyExistsException(UsernameAlreadyExistsException exception) {
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ProblemDetail handleUserAlreadyExistsException(UserAlreadyExistsException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, exception.getMessage());
     }
 
@@ -21,11 +21,11 @@ public class AuthExceptionHandler {
         );
     }
 
-    @ExceptionHandler(InvalidRefreshTokenException.class)
-    public ProblemDetail handleInvalidRefreshTokenException() {
+    @ExceptionHandler(InvalidTokenException.class)
+    public ProblemDetail handleInvalidTokenException() {
         return ProblemDetail.forStatusAndDetail(
                 HttpStatus.UNAUTHORIZED,
-                "Invalid refresh token"
+                "Invalid token"
         );
     }
 }
