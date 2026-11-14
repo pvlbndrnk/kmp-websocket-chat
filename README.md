@@ -1,4 +1,4 @@
-# KMP WebSocket Chat
+# Mssngr
 
 Monorepo for a WebSocket chat application with Ktor and Spring server implementations and Kotlin Multiplatform clients for Android and iOS.
 
