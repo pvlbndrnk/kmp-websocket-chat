@@ -1,12 +1,12 @@
 package com.pvlbndrnk.chat.auth.data.remote
 
-import com.pvlbndrnk.chat.auth.domain.error.AuthException
-import com.pvlbndrnk.chat.auth.data.remote.model.TokenRequestDto
-import com.pvlbndrnk.chat.auth.data.remote.model.TokenResponseDto
 import com.pvlbndrnk.chat.auth.data.remote.model.LoginRequestDto
 import com.pvlbndrnk.chat.auth.data.remote.model.LoginResponseDto
+import com.pvlbndrnk.chat.auth.data.remote.model.TokenRequestDto
+import com.pvlbndrnk.chat.auth.data.remote.model.TokenResponseDto
 import com.pvlbndrnk.chat.auth.data.remote.model.UserRequestDto
 import com.pvlbndrnk.chat.auth.data.remote.model.UserResponseDto
+import com.pvlbndrnk.chat.auth.domain.error.AuthException
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
@@ -48,7 +48,7 @@ class AuthApiImpl(private val httpClient: HttpClient): AuthApi {
         return when(response.status) {
             HttpStatusCode.Created -> response.body()
             HttpStatusCode.Unauthorized -> throw AuthException.InvalidToken()
-            else -> throw IllegalStateException("Create accessToken failed: HTTP ${response.status}")
+            else -> throw IllegalStateException("Refresh accessToken failed: HTTP ${response.status}")
         }
     }
 }

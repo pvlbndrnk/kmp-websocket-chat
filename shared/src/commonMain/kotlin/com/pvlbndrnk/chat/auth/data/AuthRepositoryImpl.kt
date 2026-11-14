@@ -1,8 +1,8 @@
 package com.pvlbndrnk.chat.auth.data
 
 import com.pvlbndrnk.chat.auth.data.remote.AuthApi
-import com.pvlbndrnk.chat.auth.data.remote.model.TokenRequestDto
 import com.pvlbndrnk.chat.auth.data.remote.model.LoginRequestDto
+import com.pvlbndrnk.chat.auth.data.remote.model.TokenRequestDto
 import com.pvlbndrnk.chat.auth.data.remote.model.UserRequestDto
 import com.pvlbndrnk.chat.auth.domain.AuthRepository
 import com.pvlbndrnk.chat.auth.domain.error.AuthException
