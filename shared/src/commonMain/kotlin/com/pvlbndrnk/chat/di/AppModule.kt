@@ -67,7 +67,7 @@ fun appModule(serverBaseUrl: String) = module {
                     refreshTokens {
                         val refreshToken = sessionManager.readRefreshToken()
                             ?: return@refreshTokens null
-                        val response = client.post("access-tokens") {
+                        val response = client.post("auth/refresh") {
                             markAsRefreshTokenRequest()
                             contentType(ContentType.Application.Json)
                             setBody(TokenRequestDto(refreshToken))
