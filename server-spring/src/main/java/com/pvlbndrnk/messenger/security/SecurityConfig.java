@@ -38,9 +38,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers(HttpMethod.POST, "/users").permitAll();
-            auth.requestMatchers(HttpMethod.POST, "/sessions").permitAll();
-            auth.requestMatchers(HttpMethod.POST, "/access-tokens").permitAll();
+            auth.requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
+            auth.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+            auth.requestMatchers(HttpMethod.POST, "/auth/refresh").permitAll();
             auth.requestMatchers(HttpMethod.GET, "/messages").authenticated();
             auth.requestMatchers("/chat-socket").authenticated();
             auth.dispatcherTypeMatchers(DispatcherType.ERROR).permitAll();
